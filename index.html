@@ -24,6 +24,17 @@
             margin-top: 20px;
             font-size: 1.5em;
         }
+        .health-bar {
+            height: 20px;
+            width: 100%;
+            background-color: #555;
+            margin-top: 10px;
+        }
+        .health-bar-inner {
+            height: 100%;
+            background-color: #f00;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -32,10 +43,12 @@
         <div class="fighter">
             <label for="fighter1">Combattant 1:</label>
             <input type="text" id="fighter1" placeholder="Nom du combattant 1">
+            <div class="health-bar"><div class="health-bar-inner" id="health1"></div></div>
         </div>
         <div class="fighter">
             <label for="fighter2">Combattant 2:</label>
             <input type="text" id="fighter2" placeholder="Nom du combattant 2">
+            <div class="health-bar"><div class="health-bar-inner" id="health2"></div></div>
         </div>
         <button onclick="fight()">Combattre</button>
         <div id="result"></div>
@@ -51,19 +64,29 @@
                 return;
             }
 
-            const fighter1Power = Math.floor(Math.random() * 100);
-            const fighter2Power = Math.floor(Math.random() * 100);
+            let health1 = 100;
+            let health2 = 100;
 
-            let result = '';
-            if (fighter1Power > fighter2Power) {
-                result = `${fighter1} gagne avec une puissance de ${fighter1Power} contre ${fighter2Power} de ${fighter2}.`;
-            } else if (fighter1Power < fighter2Power) {
-                result = `${fighter2} gagne avec une puissance de ${fighter2Power} contre ${fighter1Power} de ${fighter1}.`;
-            } else {
-                result = `C'est un match nul ! Les deux combattants ont une puissance de ${fighter1Power}.`;
+            while (health1 > 0 && health2 > 0) {
+                const damage1 = Math.floor(Math.random() * 20);
+                const damage2 = Math.floor(Math.random() * 20);
+
+                health1 -= damage2;
+                health2 -= damage1;
+
+                document.getElementById('health1').style.width = health1 + '%';
+                document.getElementById('health2').style.width = health2 + '%';
+
+                if (health1 <= 0) {
+                    document.getElementById('result').innerText = `${fighter2} gagne !`;
+                    return;
+                }
+
+                if (health2 <= 0) {
+                    document.getElementById('result').innerText = `${fighter1} gagne !`;
+                    return;
+                }
             }
-
-            document.getElementById('result').innerText = result;
         }
     </script>
 </body>
