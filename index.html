@@ -50,6 +50,9 @@
         #minigame canvas {
             border: 1px solid #fff;
         }
+        #text-minigame {
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -88,6 +91,14 @@
         <h2>Mini-Jeu : Attrape les étoiles</h2>
         <canvas id="minigame-canvas" width="400" height="300"></canvas>
         <button onclick="startMinigame()">Commencer le Mini-Jeu</button>
+    </div>
+
+    <div id="text-minigame">
+        <h2>Mini-Jeu Textuel : Deviner le Nombre</h2>
+        <p>Devinez un nombre entre 1 et 100 :</p>
+        <input type="number" id="guess" min="1" max="100">
+        <button onclick="guessNumber()">Soumettre</button>
+        <p id="feedback"></p>
     </div>
 
     <script>
@@ -175,6 +186,24 @@
 
             setInterval(addStar, 1000);
             gameLoop();
+        }
+
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+        function guessNumber() {
+            const userGuess = parseInt(document.getElementById('guess').value);
+            let feedback = '';
+
+            if (userGuess === randomNumber) {
+                feedback = 'Félicitations ! Vous avez deviné le nombre.';
+                randomNumber = Math.floor(Math.random() * 100) + 1; // Reset the game
+            } else if (userGuess < randomNumber) {
+                feedback = 'Trop bas ! Essayez encore.';
+            } else if (userGuess > randomNumber) {
+                feedback = 'Trop haut ! Essayez encore.';
+            }
+
+            document.getElementById('feedback').innerText = feedback;
         }
     </script>
 </body>
