@@ -44,6 +44,12 @@
             width: 100%;
             transition: width 0.5s;
         }
+        #minigame {
+            margin-top: 30px;
+        }
+        #minigame canvas {
+            border: 1px solid #fff;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +82,12 @@
         </div>
         <button onclick="fight()">Combattre</button>
         <div id="result"></div>
+    </div>
+
+    <div id="minigame">
+        <h2>Mini-Jeu : Attrape les étoiles</h2>
+        <canvas id="minigame-canvas" width="400" height="300"></canvas>
+        <button onclick="startMinigame()">Commencer le Mini-Jeu</button>
     </div>
 
     <script>
@@ -124,6 +136,45 @@
                     return;
                 }
             }
+        }
+
+        function startMinigame() {
+            const canvas = document.getElementById('minigame-canvas');
+            const ctx = canvas.getContext('2d');
+            let stars = [];
+            let score = 0;
+
+            function addStar() {
+                const x = Math.random() * canvas.width;
+                const y = 0;
+                stars.push({ x, y });
+            }
+
+            function updateStars() {
+                for (let star of stars) {
+                    star.y += 2;
+                }
+                stars = stars.filter(star => star.y < canvas.height);
+            }
+
+            function drawStars() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let star of stars) {
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function gameLoop() {
+                updateStars();
+                drawStars();
+                requestAnimationFrame(gameLoop);
+            }
+
+            setInterval(addStar, 1000);
+            gameLoop();
         }
     </script>
 </body>
