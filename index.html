@@ -43,12 +43,24 @@
         <p>Bienvenue dans le monde des combats clandestins. Choisissez vos combattants et préparez-vous à un affrontement épique.</p>
         <div class="fighter">
             <label for="fighter1">Combattant 1:</label>
-            <input type="text" id="fighter1" placeholder="Nom du combattant 1">
+            <select id="fighter1">
+                <option value="Naruto">Naruto Uzumaki</option>
+                <option value="Goku">Son Goku</option>
+                <option value="Batman">Batman</option>
+                <option value="Iron Man">Iron Man</option>
+                <option value="Wonder Woman">Wonder Woman</option>
+            </select>
             <div class="health-bar"><div class="health-bar-inner" id="health1"></div></div>
         </div>
         <div class="fighter">
             <label for="fighter2">Combattant 2:</label>
-            <input type="text" id="fighter2" placeholder="Nom du combattant 2">
+            <select id="fighter2">
+                <option value="Naruto">Naruto Uzumaki</option>
+                <option value="Goku">Son Goku</option>
+                <option value="Batman">Batman</option>
+                <option value="Iron Man">Iron Man</option>
+                <option value="Wonder Woman">Wonder Woman</option>
+            </select>
             <div class="health-bar"><div class="health-bar-inner" id="health2"></div></div>
         </div>
         <button onclick="fight()">Combattre</button>
@@ -61,7 +73,7 @@
             const fighter2 = document.getElementById('fighter2').value;
 
             if (!fighter1 || !fighter2) {
-                alert('Veuillez entrer les noms des deux combattants.');
+                alert('Veuillez choisir les deux combattants.');
                 return;
             }
 
