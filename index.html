@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Combat Clandestin</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        #game {
+            text-align: center;
+        }
+        .fighter {
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <h1>Jeu de Combat Clandestin</h1>
+        <div class="fighter">
+            <label for="fighter1">Combattant 1:</label>
+            <input type="text" id="fighter1" placeholder="Nom du combattant 1">
+        </div>
+        <div class="fighter">
+            <label for="fighter2">Combattant 2:</label>
+            <input type="text" id="fighter2" placeholder="Nom du combattant 2">
+        </div>
+        <button onclick="fight()">Combattre</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function fight() {
+            const fighter1 = document.getElementById('fighter1').value;
+            const fighter2 = document.getElementById('fighter2').value;
+
+            if (!fighter1 || !fighter2) {
+                alert('Veuillez entrer les noms des deux combattants.');
+                return;
+            }
+
+            const fighter1Power = Math.floor(Math.random() * 100);
+            const fighter2Power = Math.floor(Math.random() * 100);
+
+            let result = '';
+            if (fighter1Power > fighter2Power) {
+                result = `${fighter1} gagne avec une puissance de ${fighter1Power} contre ${fighter2Power} de ${fighter2}.`;
+            } else if (fighter1Power < fighter2Power) {
+                result = `${fighter2} gagne avec une puissance de ${fighter2Power} contre ${fighter1Power} de ${fighter1}.`;
+            } else {
+                result = `C'est un match nul ! Les deux combattants ont une puissance de ${fighter1Power}.`;
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
